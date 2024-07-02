@@ -17,8 +17,18 @@
         HasValue = hasValue;
     }
 
+    /// <summary>
+    /// Do we have value or are we Option.None?
+    /// </summary>
     public bool HasValue { get; private init; }
 
+    /// <summary>
+    /// Comparator. This allows for all kind of comparations to be made like:
+    /// a == b where a or be is None => false
+    /// a == b where a or b is null => throw
+    /// a == b where both have values => compare the actual values
+    /// </summary>
+    /// <exception cref="InvalidOperationException">There is no null.</exception>
     public static bool operator ==(OptionBase a, OptionBase b)
     {
         if (a is null || b is null)
